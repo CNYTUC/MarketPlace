@@ -1,32 +1,42 @@
-import conf
 import modules.user as user
-import modules.fonksiyonlar as fnks
+import fonksiyonlar.f_str as f_str
+import fonksiyonlar.f_internet as f_int
+import fonksiyonlar.f_zaman as f_zaman
 
-internet_kontrolcu = fnks.Internet()
-yazi_frmt = fnks.YaziFormat()
+# 0) Hoşgeldiniz
 
-#Hoşgeldiniz
+print("🚀 MC Test Başlatıldı!\n")
 
-print("🚀 MarketPlace Test Uygulaması Başlatıldı!")
-
-# 1) INTERNET SIVISINI BAŞLAT
-# fnks modülü içindeki Internet sınıfından bir nesne oluşturuyoruz
+# 1) INTERNET SINAMASI
 
 while True:
-    # Nesne üzerinden çağırıyoruz ve 'i' parametresi için 1 değerini gönderiyoruz
-    if internet_kontrolcu.Ikontrol(i=1):
+
+    if f_int.kontrol():
+
+        Msj = f"⏱️ İnternet bağlantısı aktif, borsa sunucusuna erişilebilir."
+        print(f_str.MsjBasari(Msj))
+
         break
-    print(yazi_frmt.Yazi.Red(f"İnternet bağlantısı Kurulamadı. Lütfen Tekrar deneyiniz!!!"))
 
+    Msj: str = f"❌ Başarısız: Bağlantı hatası! 5 sn içinde tekrar denenecek!!!"
+    print(f_str.MsjIkaz(Msj))
 
-# 2) Kullanıcı işlemleri
-# ==================================================================================
-if user.kullanici_atama():
+    x = f_zaman.Bekle(5)
 
-    if conf.Gecerli_Aktiflik == "1":
+# 2) Adına işlem yapılacak Kullanıcı Sayısını Al
 
-        print(yazi_frmt.Yazi.Green(f"Giriş Başarılı\nKullanıcı Adı: {conf.Gecerli_Name}")
-        )
+tum_kullanicilar = user.get_all_users()
+i = 0
+for kullanici in tum_kullanicilar:
+    i = i + 1
+
+if i == 0:
+    Msj: str = f"❌ Başarısız: Adına işlem yapılacak kullanıcı bulunamadı!!!"
+    print(f_str.MsjHata(Msj))
+else:
+    Msj = f"{i} kullanıcı için işlem başlatılıyor."
+    print(f_str.MsjBasari(Msj))
+
 
 # 3) Hisse Senedi Listesini Çek
 
