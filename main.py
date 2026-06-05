@@ -1,12 +1,34 @@
-from modules.user import create_user, get_all_users
+import conf
 import modules.user as user
+import modules.fonksiyonlar as fnks
+
+internet_kontrolcu = fnks.Internet()
+yazi_frmt = fnks.YaziFormat()
+
+#Hoşgeldiniz
 
 print("🚀 MarketPlace Test Uygulaması Başlatıldı!")
 
-# Kullanıcı işlemleri
+# 1) INTERNET SIVISINI BAŞLAT
+# fnks modülü içindeki Internet sınıfından bir nesne oluşturuyoruz
+
+while True:
+    # Nesne üzerinden çağırıyoruz ve 'i' parametresi için 1 değerini gönderiyoruz
+    if internet_kontrolcu.Ikontrol(i=1):
+        break
+    print(yazi_frmt.Yazi.Red(f"İnternet bağlantısı Kurulamadı. Lütfen Tekrar deneyiniz!!!"))
+
+
+# 2) Kullanıcı işlemleri
 # ==================================================================================
 if user.kullanici_atama():
-    print(frmt.Yazi.Red(f"başarılı\n"))
+
+    if conf.Gecerli_Aktiflik == "1":
+
+        print(yazi_frmt.Yazi.Green(f"Giriş Başarılı\nKullanıcı Adı: {conf.Gecerli_Name}")
+        )
+
+# 3) Hisse Senedi Listesini Çek
 
 
 
@@ -15,18 +37,5 @@ if user.kullanici_atama():
 
 
 
-# #İnternet Kontrol
-#
-# for i in range(1, 5):
-#     try:
-#         # İnternet bağlantısını test etmek için örnek bir istek
-#         response = requests.get("https://httpbin.org", timeout=5)
-#         if response.status_code == 200:
-#             print(f"⏱️ Kontrol {i}: İnternet bağlantısı aktif, borsa sunucusu erişilebilir.")
-#             break
-#
-#     except Exception as e:
-#         print(f"❌ Kontrol {i} Başarısız: Bağlantı hatası! {e}")
-#
-#     time.sleep(2)  # 2 saniye bekle
+
 
