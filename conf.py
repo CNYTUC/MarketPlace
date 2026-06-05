@@ -1,4 +1,4 @@
-
+tum_kullanicilar = None
 
 # Gecerli_Name = None
 # Gecerli_Mail = None
