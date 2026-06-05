@@ -1,16 +1,12 @@
 from modules.user import create_user, get_all_users
 import modules.user as user
 
-
 print("🚀 MarketPlace Test Uygulaması Başlatıldı!")
-
 
 # Kullanıcı işlemleri
 # ==================================================================================
-user.kullanici_atama()
-
-# print(f"isim {conf.Gecerli_Name}\nmail {conf.Gecerli_Mail}\ntelegram {conf.Gecerli_Telegram_ID}\naktif {conf.Gecerli_Aktiflik}")
-
+if user.kullanici_atama():
+    print(frmt.Yazi.Red(f"başarılı\n"))
 
 
 

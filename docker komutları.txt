@@ -1,8 +1,6 @@
 # 1. Eski konteyneri temizleyin (Aynı ismi tekrar kullanabilmek için)
 docker rm -f marketplace-container
-
 # 2. Kod değişiklikleriyle yeniden derleyin (Yine sonunda nokta var)
 docker build -t marketplace-botu .
-
 # 3. Yeni kodla tekrar çalıştırın
 docker run -it --name marketplace-container marketplace-botu
