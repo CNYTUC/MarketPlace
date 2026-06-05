@@ -125,110 +125,97 @@ def delete_user(user_id: str) -> bool:
 # ── YARDIMCILAR────────────────────────────────────────────────────────────────
 
 def kullanici_atama():
-    # ANA DÖNGÜ (Menüler arası geçişi sağlar)
+
     while True:
 
         # 1. KULLANICI TÜRÜ SEÇİMİ
-        # ────────────────────────────────────────────────────────────────
         while True:
             print(frmt.Yazi.White("1. Mevcut Kullanıcı"))
             print(frmt.Yazi.White("2. Yeni Kullanıcı"))
             kullaniciTuru = input(frmt.Yazi.BlueLight("Lütfen kullanıcı türünü seçin: "))
             print("")
-
             if kullaniciTuru in ["1", "2"]:
                 break
-
             print(frmt.Yazi.Red("Geçersiz seçim!\n"))
-        # ────────────────────────────────────────────────────────────────
 
-        # 2. MEVCUT KULLANICI İŞLEMLERİ
-        # ────────────────────────────────────────────────────────────────
+        # 2. MEVCUT KULLANICI
         if kullaniciTuru == "1":
             tum_kullanicilar = get_all_users()
-            secim = None  # Döngü dışından kontrol edebilmek için başta boş tanımlıyoruz
+            secim = None
 
-            # İSİM ARAMA DÖNGÜSÜ
             while True:
-                aranan_isim = input(frmt.Yazi.White("Lütfen adinizi girin: "))
-                aranan_isim_varmi = False
+                aranan_isim = input(frmt.Yazi.White("Lütfen adınızı girin: "))
+                bulunan = None
 
-                # Kullanıcı kontrolü ve Değişken Atamaları
                 for kullanici in tum_kullanicilar:
                     if kullanici.get("name") == aranan_isim:
-                        aranan_isim_varmi = True
-
-                        # İstediğin dış değişken atamaları tam burada yapılıyor:
-                        conf.Gecerli_Name = aranan_isim
-                        conf.Gecerli_Mail = kullanici.get("email")
-                        conf.Gecerli_Telegram_ID = kullanici.get("telegram_chat_id")
-                        conf.Gecerli_Aktiflik = kullanici.get("is_active")
+                        bulunan = kullanici
                         break
 
-                # EĞER İSİM BULUNDUYSA: İsim arama döngüsünü kır
-                if aranan_isim_varmi:
+                if bulunan:
+                    conf.Gecerli_Name         = bulunan.get("name")
+                    conf.Gecerli_Mail         = bulunan.get("email")
+                    conf.Gecerli_Telegram_ID  = bulunan.get("telegram_chat_id")
+                    conf.Gecerli_Aktiflik     = bulunan.get("is_active")
                     print(frmt.Yazi.GreenLight(f"\nGiriş başarılı! Hoş geldiniz, {aranan_isim}.\n"))
                     break
 
-                # EĞER İSİM BULUNAMADDIYSA: Alt Menüyü Göster
-                print(frmt.Yazi.Red(f"{aranan_isim} adında bir kullanıcı bulunamadı.\n"))
+                print(frmt.Yazi.Red(f"{aranan_isim} adında kullanıcı bulunamadı.\n"))
 
                 while True:
                     print(frmt.Yazi.White("1. Yeniden dene"))
                     print(frmt.Yazi.White("2. Bir Üst Menü"))
-                    secim = input(frmt.Yazi.BlueLight("Lütfen yapmak istediğiniz işlemin numarasını girin: "))
+                    secim = input(frmt.Yazi.BlueLight("Seçiminiz: "))
                     print("")
-
                     if secim in ["1", "2"]:
                         break
                     print(frmt.Yazi.Red("Geçersiz seçim!\n"))
 
-                if secim == "1":
-                    continue  # İsim arama döngüsünün başına döner (Tekrar isim sorar)
-                elif secim == "2":
-                    break  # İsim arama döngüsünü kırar, ana menüye fırlatır
+                if secim == "2":
+                    break
 
-            # İsim arama döngüsünden çıkıldığında hangi sebeple çıkıldığını kontrol ediyoruz:
             if secim == "2":
-                continue  # Eğer kullanıcı 'Üst Menü' dediyse, Ana Döngünün başına dön
+                continue
 
-            # Eğer 'Üst Menü' denmediyse (yani başarıyla giriş yapıldıysa) Ana Döngüyü bitir
-            break
+            break  # Başarılı giriş → ana döngüden çık
 
-        # 3. YENİ KULLANICI İŞLEMLERİ
-        # ────────────────────────────────────────────────────────────────
+        # 3. YENİ KULLANICI
         elif kullaniciTuru == "2":
-
-
-
-            print(frmt.Yazi.GreenLight("Yeni kullanıcı kayıt alanı..."))
-            # Yeni kayıt kodların buraya gelecek...
-
-            # İstediğin dış değişken atamaları tam burada yapılıyor:
-
-            varmi: bool
             tum_kullanicilar = get_all_users()
+            mevcut_isimler = [k.get("name") for k in tum_kullanicilar]
+            mevcut_mailler = [k.get("email") for k in tum_kullanicilar]
 
+            # İsim al — mükerrer kontrolü
             while True:
-                y_Name = input(frmt.Yazi.BlueLight("Lütfen kullanıcı adınızı giriniz: "))
-                for kullanici in tum_kullanicilar:
-                    if kullanici.get("name") == y_Name:
-                        varmi = True
-                        break
+                y_Name = input(frmt.Yazi.BlueLight("Kullanıcı adı: "))
+                if y_Name in mevcut_isimler:
+                    print(frmt.Yazi.Red(f"'{y_Name}' adı zaten kayıtlı. Farklı bir ad girin.\n"))
+                else:
+                    break
 
-            y_Mail = input(frmt.Yazi.BlueLight("Lütfen mail adresinizi giriniz: "))
-            y_Telegram_ID = input(frmt.Yazi.BlueLight("Lütfen Telegram ıd nizi giriniz: "))
+            # Mail al — mükerrer kontrolü
+            while True:
+                y_Mail = input(frmt.Yazi.BlueLight("Mail adresi: "))
+                if y_Mail in mevcut_mailler:
+                    print(frmt.Yazi.Red(f"'{y_Mail}' zaten kayıtlı. Farklı bir mail girin.\n"))
+                else:
+                    break
 
+            # Telegram ID al
+            y_Telegram_ID = input(frmt.Yazi.BlueLight("Telegram Chat ID: "))
 
+            # Veritabanına kaydet
+            yeni = create_user(
+                name=y_Name,
+                email=y_Mail,
+                telegram_chat_id=y_Telegram_ID
+            )
 
-            # İstediğin dış değişken atamaları tam burada yapılıyor:
-            conf.Gecerli_Name = aranan_isim
+            # conf'a ata
+            conf.Gecerli_Name        = yeni.get("name")
+            conf.Gecerli_Mail        = yeni.get("email")
+            conf.Gecerli_Telegram_ID = yeni.get("telegram_chat_id")
+            conf.Gecerli_Aktiflik    = yeni.get("is_active")
 
-
-
-
-            conf.Gecerli_Mail = kullanici.get("email")
-            conf.Gecerli_Telegram_ID = kullanici.get("telegram_chat_id")
-            conf.Gecerli_Aktiflik = kullanici.get("is_active")
-
-            break  # İşlem bitince ana döngüden çık
+            print(frmt.Yazi.GreenLight(f"\nKayıt başarılı! Hoş geldiniz, {y_Name}.\n"))
+            break
