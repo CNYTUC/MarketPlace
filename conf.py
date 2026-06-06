@@ -1,4 +1,5 @@
 tum_kullanicilar = None
+tum_hisseler = None
 
 # Gecerli_Name = None
 # Gecerli_Mail = None

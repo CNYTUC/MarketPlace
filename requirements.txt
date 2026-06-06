@@ -4,4 +4,6 @@ flask==3.0.0
 
 supabase
 python-dotenv
+pandas
+yfinance
 
