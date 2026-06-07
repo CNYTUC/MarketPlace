@@ -78,7 +78,7 @@ else:
     ))
 
     print(f_str.MsjIkaz(
-        f"{len(conf.veri_hatalari)} hissede veri alınamadı."
+        f"{len(conf.basarisiz_hisseler)} hissede veri alınamadı."
     ))
 
 

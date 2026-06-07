@@ -1,9 +1,36 @@
+# Tüm kullanıcı verilerini alır
+# ------------------------------------------------------------------
 tum_kullanicilar = None
+
+# Tüm hisse senetlerinin listesini alır
+# ------------------------------------------------------------------
 tum_hisseler = None
-basarili_hisseler  = None
-veri_hatalari = None
+
+# Verisi çekilebilen hisselerin fiyat tabloları
+# ------------------------------------------------------------------
+hisse_verileri = None
+
+# Verisi çekilebilen hisse kodları
+# ------------------------------------------------------------------
+basarili_hisseler = None
+
+# Verisi çekilemeyen hisse kodları
+# ------------------------------------------------------------------
+basarisiz_hisseler = None
+
+# SADECE RAPORLAMA İÇİN KULLANILIYOR
+# ------------------------------------------------------------------
+# Her hissenin veri çekme durumunu tutar
+# Örnek:
+# [
+#   {"Kod": "THYAO", "Durum": "✅"},
+#   {"Kod": "ADLVY", "Durum": "❌"}
+# ]
+
 veri_durumlari = None
-# Gecerli_Name = None
-# Gecerli_Mail = None
-# Gecerli_Telegram_ID = None
-# Gecerli_Aktiflik = None
+
+# ANALİZ İÇİN KULLANILAN DEĞİŞKENLER
+# ------------------------------------------------------------------
+analiz_sonuclari = None
+elenenler = None
+analiz_hatalari = None
