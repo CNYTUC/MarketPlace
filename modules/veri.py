@@ -1,6 +1,9 @@
 import pandas as pd
 import yfinance as yf
 
+# Hisse senedi listesi çekerken mesajları gizler
+# import logging
+# logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
 def squeeze(s):
     if hasattr(s, "squeeze"):
