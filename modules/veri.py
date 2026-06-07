@@ -8,7 +8,6 @@ def squeeze(s):
 
     if hasattr(s, "iloc") and getattr(s, "ndim", 1) == 2:
         s = s.iloc[:, 0]
-
     return s
 
 
@@ -22,14 +21,7 @@ def hisse_kodlarini_temizle(hisse):
         ham = hisse
 
     elif isinstance(hisse, dict):
-        ham = (
-            hisse.get("hisse")
-            or hisse.get("Hisse")
-            or hisse.get("kod")
-            or hisse.get("Kod")
-            or hisse.get("sembol")
-            or hisse.get("Sembol")
-        )
+        ham = hisse.get("Kod")
 
     elif isinstance(hisse, (list, tuple)):
         ham = hisse[0]

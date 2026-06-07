@@ -4,7 +4,7 @@ def kontrol() -> bool:
     try:
         response = requests.get(
             "https://httpbin.org",
-            timeout=5
+            timeout=10
         )
         return response.status_code == 200
 
