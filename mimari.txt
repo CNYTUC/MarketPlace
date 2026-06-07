@@ -1,0 +1,24 @@
+YAPILANLAR.
+
+Main.py
+1. internet kontrol
+
+
+
+Mimari
+
+Supabase
+    ↓
+conf.tum_hisseler
+    ↓
+veri.py
+    ↓
+conf.hisse_verileri
+conf.basarili_hisseler
+conf.basarisiz_hisseler
+    ↓
+analiz.py
+    ↓
+conf.analiz_sonuclari
+conf.elenenler
+conf.analiz_hatalari
